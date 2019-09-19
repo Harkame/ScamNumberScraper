@@ -50,6 +50,16 @@ def dixhuit_page(page):
         print(card_title_tag.text)
 
 
+def dixhuit_search(search):
+    response = requests.get(f"{DIXHUIT_URL}/{search}")
+
+    dixhuit_pagee = BeautifulSoup(response.content, features="lxml")
+
+    container_tags = dixhuit_page.find_all('container')
+
+    container_1 = container_tags[0]
+
+
 def signal_arnaques():
     pass
 
@@ -128,11 +138,27 @@ def assiste(url):
     pass
 
 
+class dixhuit:
+    consultations = 0
+    comments = []
+
+    def __init__(self):
+        pass
+
+
+class dixhuitComment:
+    user = None
+    date = None
+    content = None
+    like = 0
+    dislike = 0
+
+
 if __name__ == "__main__":
-    # dixhuit(1)
+    dixhuit(1)
     # signal_arnaques_page(3)
     # arnaques_internet(88)
     # faux_numeros()
-    assiste("https://assiste.com/Arnaques_telephoniques/index_01.html")
-    assiste("https://assiste.com/Arnaques_telephoniques/index_02.html")
+    # assiste("https://assiste.com/Arnaques_telephoniques/index_01.html")
+    # assiste("https://assiste.com/Arnaques_telephoniques/index_02.html")
     pass
