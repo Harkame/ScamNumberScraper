@@ -12,8 +12,8 @@
 
 ### Search (details)
 
--   [ ] [Dixhuit](http://www.dixhuit.fr)
--   [ ] [ARNAQUE-SMS](https://www.arnaque-sms.com)
+-   [x] [Dixhuit](http://www.dixhuit.fr)
+-   [x] [ARNAQUE-SMS](https://www.arnaque-sms.com)
 -   [ ] [Numero inconnu](https://www.numeroinconnu.fr)
 -   [ ] [DOIS-JE REPONDRE?](https://www.doisjerepondre.fr)
 -   [ ] [recherche-inverse](https://www.recherche-inverse.com)
