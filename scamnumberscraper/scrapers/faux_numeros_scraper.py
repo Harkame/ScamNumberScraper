@@ -1,6 +1,15 @@
 import requests
 from bs4 import BeautifulSoup
 
+from .base import ScamNumberSearchScraper
+
+
+class FauxNumerosScraper(ScamNumberListScraper):
+    def __init__(self):
+        ScamNumberListScraper.__init__(
+            self, base_url="http://fauxnumeros.fr/#fragment-14r"
+        )
+
 
 def faux_numeros():
     response = requests.get(f"{FAUX_NUMEROS_URL}")

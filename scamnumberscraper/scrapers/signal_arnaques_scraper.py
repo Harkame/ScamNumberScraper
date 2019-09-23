@@ -3,6 +3,53 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
+from .base import ScamNumberPageScraper, ScamNumberScraper, ScamNumberSearchScraper
+
+
+class SignalArnaquesScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
+    def __init__(self):
+        ScamNumberSearchScraper.__init__(
+            self,
+            base_url="https://www.signal-arnaques.com/phone-fraud",
+            search_url="?search_term=",
+        )
+
+        ScamNumberPageScraper.__init__(
+            self,
+            base_url="https://www.signal-arnaques.com/phone-fraud",
+            page_url="?Scam_page=",
+        )
+
+    def search(self, phone_number):
+        response = requests.get(f"{self.search_url}{phone_number}")
+
+        print(f"{self.search_url}{phone_number}")
+
+        page = BeautifulSoup(response.content, features="lxml")
+
+    def page(self, number):
+        response = requests.get(f"{self.page_url}{number}")
+
+        page = BeautifulSoup(response.content, features="lxml")
+
+        td_tags = page.find("tbody").find_all("td")
+
+        numbers = []
+
+        for i in range(1, len(td_tags), 4):
+            cleared_tags.append(td_tags[i])
+
+        return numbers
+
+    def count(self):
+        response = requests.get(f"{self.base_url}")
+
+        page = BeautifulSoup(response.content, features="lxml")
+
+        a_tag = page.find("span", {"class": "d-none"}).find("a")
+
+        return int(a_tag["data-ci-pagination-page"])
+
 
 class SignalArnaquesNumber:
     comments = []
@@ -20,26 +67,6 @@ class SignalArnaquesNumber:
         to_string += os.linesep
 
         return to_string
-
-
-def signal_arnaques():
-    pass
-
-
-def signal_arnaques_page(page):
-    response = requests.get(f"{SIGNAL_ARNAQUES_URL}{page}")
-
-    page = BeautifulSoup(response.content, features="lxml")
-
-    td_tags = page.find("tbody").find_all("td")
-
-    cleared_tags = []
-
-    for i in range(1, len(td_tags), 4):
-        cleared_tags.append(td_tags[i])
-
-    for tag in cleared_tags:
-        print(tag.text)
 
 
 class SignalArnaquesNumberComment:

@@ -3,6 +3,18 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
+from .base import ScamNumberSearchScraper
+
+
+class NumeroInconnuScraper(ScamNumberSearchScraper):
+    def __init__(self):
+        ScamNumberSearchScraper.__init__(
+            self, base_url="https://www.numeroinconnu.fr", search_url="/numero/"
+        )
+
+    def search(self, phone_number):
+        pass
+
 
 class NumeroInconnuNumber:
     comments = []

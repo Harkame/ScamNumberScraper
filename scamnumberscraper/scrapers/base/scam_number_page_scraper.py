@@ -18,3 +18,11 @@ class ScamNumberPageScraper(ScamNumberListScraper):
     @abstractmethod
     def count(self):
         raise NotImplementedError
+
+    def list(self):
+        numbers = []
+
+        for page in range(0, self.count()):
+            numbers.append(self.page(index))
+
+        return numbers

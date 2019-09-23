@@ -3,22 +3,21 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
-from .base import (ScamNumberPageScraper, ScamNumberScraper,
-                   ScamNumberSearchScraper)
+from .base import ScamNumberPageScraper, ScamNumberScraper, ScamNumberSearchScraper
 
 
 class DixHuitScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
     def __init__(self):
         ScamNumberSearchScraper.__init__(
-            self, base_url="http://www.dixhuit.fr", search_url="/")
+            self, base_url="http://www.dixhuit.fr", search_url="/"
+        )
 
         ScamNumberPageScraper.__init__(
-            self, base_url="http://www.dixhuit.fr", page_url="/page/")
+            self, base_url="http://www.dixhuit.fr", page_url="/page/"
+        )
 
     def search(self, phone_number):
         response = requests.get(f"{self.search_url}{phone_number}")
-
-        print(f"{self.search_url}{phone_number}")
 
         page = BeautifulSoup(response.content, features="lxml")
 
@@ -81,44 +80,16 @@ class DixHuitScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
         return phones_number
 
     def count(self):
-        response = requests.get(f"{self.page_url}")
+        response = requests.get(f"{self.base_url}")
 
-        dixhuit_page = BeautifulSoup(response.content, features="lxml")
+        page = BeautifulSoup(response.content, features="lxml")
 
-        span_tags = dixhuit_page.find_all(
-            "h5", {"class": "pagination justify-content-center"}).find_all('span')
+        a_tag = page.find("span", {"class": "d-none"}).find("a")
 
-        span_tag = span_tags[-1]
-
-        print(span_tag.te)
+        return int(a_tag["data-ci-pagination-page"])
 
 
-def dixhuit_ful(page):
-    '''
-    response = requests.get(f"{DIXHUIT_URL}/page/{page}")
-
-    dixhuit_pagee = BeautifulSoup(response.content, features="lxml")
-
-    li_tags = dixhuit_pagee.find_all("li", {"class": "page-item"})
-
-    if len(li_tags) < 2:
-        return
-
-    next_page = li_tags[-1]
-
-    a_tag = next_page.find("a")
-
-    next_page = a_tag["data-ci-pagination-page"]
-
-    dixhuit_page(next_page)
-
-    time.sleep(1)
-
-    dixhuit(next_page)
-    '''
-
-
-class DixHuitNumber():
+class DixHuitNumber:
     consultations = 0
     comments = []
 
