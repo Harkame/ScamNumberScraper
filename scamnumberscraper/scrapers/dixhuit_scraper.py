@@ -3,7 +3,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
-from .base import ScamNumberPageScraper, ScamNumberScraper, ScamNumberSearchScraper
+from .base import NotedComment, ScamNumberPageScraper, ScamNumberSearchScraper
 
 
 class DixHuitScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
@@ -39,29 +39,29 @@ class DixHuitScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
         lis = page.find_all("li", {"class": "mb-4"})
 
         for li in lis:
-            dixhuit_number_comment = DixHuitNumberComment()
+            comment = NotedComment()
 
             title_tag = li.find("h5", {"class": "mb-1"})
 
-            dixhuit_number_comment.user = title_tag.contents[2].strip()
+            comment.username = title_tag.contents[2].strip()
 
             date_tag = title_tag.find("meta")
 
-            dixhuit_number_comment.date = date_tag["content"]
+            comment.date = date_tag["content"]
 
             body_tag = li.find("div", {"itemprop": "reviewBody"})
 
-            dixhuit_number_comment.content = body_tag.text.strip()
+            comment.content = body_tag.text.strip()
 
             foot_tag = li.find("div", {"class": "row px-1 like_unlike"})
 
             spans = foot_tag.find_all("span")
 
-            dixhuit_number_comment.like = int(spans[0].text)
+            comment.like = int(spans[0].text)
 
-            dixhuit_number_comment.like = int(spans[1].text)
+            comment.like = int(spans[1].text)
 
-            dixhuit_number.comments.append(dixhuit_number_comment)
+            dixhuit_number.comments.append(comment)
 
         return dixhuit_number
 
@@ -113,37 +113,3 @@ class DixHuitNumber:
 
     def search(phone_number):
         pass
-
-
-class DixHuitNumberComment:
-    user = None
-    date = None
-    content = None
-    like = 0
-    dislike = 0
-
-    def __init__(self):
-        pass
-
-    def __str__(self):
-        to_string = "User : "
-        to_string += self.user
-        to_string += os.linesep
-
-        to_string += "Date : "
-        to_string += self.date
-        to_string += os.linesep
-
-        to_string += "Content : "
-        to_string += self.content
-        to_string += os.linesep
-
-        to_string += "Like : "
-        to_string += str(self.like)
-        to_string += os.linesep
-
-        to_string += "Dislike : "
-        to_string += str(self.dislike)
-        to_string += os.linesep
-
-        return to_string

@@ -1,13 +1,13 @@
 from abc import abstractmethod
 
-from .scam_number_list_scraper import ScamNumberListScraper
+from .scam_number_list_scraper import ScamNumberScraper
 
 
-class ScamNumberPageScraper(ScamNumberListScraper):
+class ScamNumberPageScraper(ScamNumberScraper):
     page_url = None
 
     def __init__(self, base_url="", page_url=""):
-        ScamNumberListScraper.__init__(self, base_url=base_url)
+        ScamNumberScraper.__init__(self, base_url=base_url)
 
         self.page_url = self.base_url + page_url
 
@@ -18,11 +18,3 @@ class ScamNumberPageScraper(ScamNumberListScraper):
     @abstractmethod
     def count(self):
         raise NotImplementedError
-
-    def list(self):
-        numbers = []
-
-        for page in range(0, self.count()):
-            numbers.append(self.page(index))
-
-        return numbers

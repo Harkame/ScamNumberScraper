@@ -1,3 +1,5 @@
+from .comments.comment import Comment
+from .comments.noted_comment import NotedComment
 from .scam_number_list_scraper import ScamNumberListScraper
 from .scam_number_page_scraper import ScamNumberPageScraper
 from .scam_number_scraper import ScamNumberScraper

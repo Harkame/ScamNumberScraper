@@ -1,28 +1,51 @@
+import re
+
 import requests
 from bs4 import BeautifulSoup
 
-from .base import ScamNumberListScraper
+from .base import ScamNumberPageScraper
 
 
-class ArnaquesInternetScraper(ScamNumberListScraper):
+class AssisteScraper(ScamNumberPageScraper):
     def __init__(self):
-        ScamNumberListScraper.__init__(
+        ScamNumberPageScraper.__init__(
             self, base_url="https://assiste.com/Arnaques_telephoniques/", page_url=""
         )
 
+    def page(self, number):
+        response = requests.get(f"{self.page_url}index_0{number}.html")
 
-def assiste(url):
-    response = requests.get(url)
+        page = BeautifulSoup(response.content, features="lxml")
 
-    page = BeautifulSoup(response.content, features="lxml")
+        li_tags = page.find("ul").find_all("li")
 
-    li_tags = page.find("ul").find_all("li")
+        numbers = []
 
-    for li_tag in li_tags:
-        if not li_tag.text.isdigit():
-            continue
+        for li_tag in li_tags:
+            if not li_tag.text.isdigit():
+                continue
 
-        a_tag = li_tag.find("a")
-        print(a_tag.text)
+            a_tag = li_tag.find("a")
+            numbers.append(a_tag.text)
 
-    pass
+        return numbers
+
+    def count(self):
+        response = requests.get(
+            f"https://assiste.com/Arnaques_telephoniques/index_01.html"
+        )
+
+        page = BeautifulSoup(response.content, features="lxml")
+
+        div_tag = page.find(
+            "div", {"id": "show_Dossier_Liste_Arnaques_telephoniques_et_numeros_01"}
+        )
+
+        a_tag = div_tag.find_all("a")[-1]
+
+        href = a_tag["href"]
+
+        result = re.search("index_(.*).html", href)
+        page = int(result.group(1))
+
+        return page

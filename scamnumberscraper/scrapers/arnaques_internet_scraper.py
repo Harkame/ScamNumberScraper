@@ -40,8 +40,6 @@ class ArnaquesInternetScraper(ScamNumberPageScraper):
 
         content = td_tag.contents[5]
 
-        page = content[len("soit") : -len("pages")]
-
         result = re.search("soit (.*) pages", content)
         page = int(result.group(1))
 
