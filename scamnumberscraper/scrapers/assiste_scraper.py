@@ -41,11 +41,10 @@ class AssisteScraper(ScamNumberPageScraper):
             "div", {"id": "show_Dossier_Liste_Arnaques_telephoniques_et_numeros_01"}
         )
 
-        a_tag = div_tag.find_all("a")[-1]
-
-        href = a_tag["href"]
+        href = div_tag.find_all("a")[-1]["href"]
 
         result = re.search("index_(.*).html", href)
+
         page = int(result.group(1))
 
         return page
