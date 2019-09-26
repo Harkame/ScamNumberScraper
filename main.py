@@ -3,7 +3,7 @@ import time
 import requests
 from bs4 import BeautifulSoup
 
-from .scrapers import (
+from scamnumberscraper.scrapers import (
     AppelInconnuScraper,
     ArnaquesInternetScraper,
     ArnaqueSMSScraper,
@@ -26,23 +26,26 @@ if __name__ == "__main__":
     # scraper = ArnaquesInternetScraper()
     # scraper = AssisteScraper()
 
-    # scraper = SignalArnaquesScraper()
+    scraper = SignalArnaquesScraper()
     # scraper = DixHuitScraper()
 
     # scraper = RechercheInverseScraper()
-    scraper = ArnaqueSMSScraper()
+    # scraper = ArnaqueSMSScraper()
     # scraper = NumeroInconnuScraper()
     # scraper = DoisJeRepondreScraper()
     # scraper = TellowsScraper()
     # scraper = ArnaqueTelephoneScraper()
     # scraper = QuiAppeleScraper()
     # scraper = AppelInconnuScraper()
-    """
-    for index in range(1, scraper.count() + 1):
+
+    count = scraper.count()
+
+    print(count)
+
+    for index in range(1, count + 1):
         page = scraper.page(index)
         print(page)
         time.sleep(2)
-        """
     # print(scraper.search("0559989827"))
 
     # print(scraper.list())

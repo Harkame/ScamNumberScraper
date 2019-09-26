@@ -1,5 +1,7 @@
 # ScamNumberScraper
 
+![ScamNumberScraper Model][scamnumberscraper.png]
+
 ## Sources
 
 ### Page
