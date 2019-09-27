@@ -42,7 +42,7 @@ For all providers, we can identify 3 kinds of provider
 -   ScamNumberListScraper : Website that display all scam numbers on a single page
 -   ScamNumberSearchScraper : Website that use an search system, scrape the details page to get more informations like owner, list of comment, etc. (depend on the provider)
 
-![Screenshot](https://github.com/Harkame/ScamNumberScraper/blob/dev/scamnumberscraper.png "ScamNumberScraper class diagram")
+![Screenshot](https://raw.githubusercontent.com/Harkame/ScamNumberScraper/dev/scamnumberscraper.png "ScamNumberScraper class diagram")
 
 ## Usage
 
