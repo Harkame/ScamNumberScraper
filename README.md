@@ -32,19 +32,19 @@ pip install scamnumberscraper
 -   [ ] [quiappele.fr](https://quiappele.fr/)
 -   [ ] [APPELINCONNU.fr](https://appelinconnu.fr/)
 
-## Usage
+## Model
 
 This project use many providers
 
-### Model
-
 For all providers, we can identify 3 kinds of provider
 
--   ScamNumberPageScraper : Website which use an paginator, each page presents an list of scam number
--   ScamNumberListScraper : Websute which display all scam numbers on an single page
--   ScamNumberSearchScraper : Website which use an search feature, scrape the details page to get informations like owner, list of comments, etc (depend of the provider)
+-   ScamNumberPageScraper : Website that uses a pagination system, each page display an list of scam number
+-   ScamNumberListScraper : Website that display all scam numbers on a single page
+-   ScamNumberSearchScraper : Website that use an search system, scrape the details page to get more informations like owner, list of comment, etc. (depend on the provider)
 
-![Screenshot](scamnumberscraper.png "ScamNumberScraper class diagram")
+![Screenshot](https://github.com/Harkame/ScamNumberScraper/blob/dev/scamnumberscraper.png "ScamNumberScraper class diagram")
+
+## Usage
 
 ### ScamNumberListScraper
 
@@ -74,7 +74,7 @@ for number in numbers:
 
 ### ScamNumberPageScraper
 
-:boom: Make sure to make an pause between all requests like with time.sleep(), some websites can detect bot :boom:
+:boom: Make sure to make an pause between all requests like with time.sleep(), some websites can detect bot and block other requests :boom:
 
 ``` python
 
