@@ -34,7 +34,7 @@ pip install scamnumberscraper
 
 ## Model
 
-This project use many providers
+This project uses many providers
 
 For all providers, we can identify 3 kinds of provider
 
