@@ -23,8 +23,6 @@ class SignalArnaquesScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
     def search(self, phone_number):
         response = requests.get(f"{self.search_url}{phone_number}")
 
-        print(f"{self.search_url}{phone_number}")
-
         page = BeautifulSoup(response.content, features="lxml")
 
     def page(self, number):
@@ -32,23 +30,30 @@ class SignalArnaquesScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
 
         page = BeautifulSoup(response.content, features="lxml")
 
-        td_tags = page.find("tbody").find_all("td")
+        tr_tags = page.find("tbody").find_all("tr")
 
         numbers = []
 
-        for i in range(1, len(td_tags), 4):
-            cleared_tags.append(td_tags[i])
+        for tr_tag in tr_tags:
+            phone_number = tr_tag.find_all("td")[1].text
+
+            numbers.append(phone_number)
 
         return numbers
 
     def count(self):
-        response = requests.get(f"{self.base_url}")
+        response = requests.get(f"{self.page_url}99999999")
 
         page = BeautifulSoup(response.content, features="lxml")
 
-        a_tag = page.find("span", {"class": "d-none"}).find("a")
+        page_counter = int(
+            page.find("ul", {"class": "pagination"})
+            .find("li", {"class": "active"})
+            .find("a")
+            .text
+        )
 
-        return int(a_tag["data-ci-pagination-page"])
+        return page_counter
 
 
 class SignalArnaquesNumber:
