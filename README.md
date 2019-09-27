@@ -34,9 +34,17 @@ pip install scamnumberscraper
 
 ## Usage
 
+This project use many providers
+
 ### Model
 
-![Screenshot](scamnumberscraper.png)
+For all providers, we can identify 3 kinds of provider
+
+-   ScamNumberPageScraper : Website which use an paginator, each page presents an list of scam number
+-   ScamNumberListScraper : Websute which display all scam numbers on an single page
+-   ScamNumberSearchScraper : Website which use an search feature, scrape the details page to get informations like owner, list of comments, etc (depend of the provider)
+
+![Screenshot](scamnumberscraper.png "ScamNumberScraper class diagram")
 
 ### ScamNumberListScraper
 
@@ -119,3 +127,5 @@ print(scraper.search("0559989827"))
 ## TODO
 
 -   Fix encoding (git bash)
+-   Rest of Search
+-   Better NumberDetails model ?
