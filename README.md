@@ -1,5 +1,9 @@
 # ScamNumberScraper
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/49c4bf17e3054bb383d70af38c18817b)](https://www.codacy.com/manual/Harkame/ScamNumberScraper?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Harkame/ScamNumberScraper&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/Harkame/ScamNumberScraper.svg?branch=master)](https://travis-ci.org/Harkame/ScamNumberScraper)
+[![codecov](https://codecov.io/gh/Harkame/ScamNumberScraper/branch/master/graph/badge.svg)](https://codecov.io/gh/Harkame/ScamNumberScraper)
+
 ## Installation
 
 ``` bash
@@ -42,7 +46,7 @@ For all providers, we can identify 3 kinds of provider
 -   ScamNumberListScraper : Website that display all scam numbers on a single page
 -   ScamNumberSearchScraper : Website that use an search system, scrape the details page to get more informations like owner, list of comment, etc. (depend on the provider)
 
-![Screenshot](https://github.com/Harkame/ScamNumberScraper/blob/dev/scamnumberscraper.png "ScamNumberScraper class diagram")
+![Screenshot](https://raw.githubusercontent.com/Harkame/ScamNumberScraper/dev/scamnumberscraper.png "ScamNumberScraper class diagram")
 
 ## Usage
 
@@ -74,7 +78,7 @@ for number in numbers:
 
 ### ScamNumberPageScraper
 
-:boom: Make sure to make an pause between all requests like with time.sleep(), some websites can detect bot and block other requests :boom:
+Make sure to make an pause between all requests like with time.sleep(), some websites can detect bot and block other requests
 
 ``` python
 

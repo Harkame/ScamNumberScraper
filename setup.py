@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="scamnumberscraper",
-    version="0.0.2",
+    version="0.0.4",
     author="Harkame",
     description="Scraper for multiple scam number sites",
     long_description=long_description,
