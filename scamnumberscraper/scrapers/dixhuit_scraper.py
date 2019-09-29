@@ -3,21 +3,22 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
-from .base import NotedComment, ScamNumberPageScraper, ScamNumberSearchScraper
+from .base import (NotedComment, NumberDetails, ScamNumberPageScraper,
+                   ScamNumberSearchScraper)
 
 
 class DixHuitScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
     def __init__(self):
         ScamNumberSearchScraper.__init__(
-            self, base_url="http://www.dixhuit.fr", search_url="/"
+            self, base_url="http://www.dixhuit.fr"
         )
 
         ScamNumberPageScraper.__init__(
-            self, base_url="http://www.dixhuit.fr", page_url="/page/"
+            self, base_url="http://www.dixhuit.fr"
         )
 
     def search(self, phone_number):
-        response = requests.get(f"{self.search_url}{phone_number}")
+        response = requests.get(f"{self.base_url}/{phone_number}")
 
         page = BeautifulSoup(response.content, features="lxml")
 
@@ -65,8 +66,8 @@ class DixHuitScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
 
         return dixhuit_number
 
-    def page(self, number):
-        response = requests.get(f"{self.page_url}{number}")
+    def page(self, page_number):
+        response = requests.get(f"{self.base_url}/page/{page_number}")
 
         dixhuit_page = BeautifulSoup(response.content, features="lxml")
 
@@ -89,9 +90,8 @@ class DixHuitScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
         return int(a_tag["data-ci-pagination-page"])
 
 
-class DixHuitNumber:
+class DixHuitNumber(NumberDetails):
     consultations = 0
-    comments = []
 
     def __init__(self):
         pass

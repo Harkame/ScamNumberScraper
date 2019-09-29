@@ -9,11 +9,11 @@ from .base import ScamNumberPageScraper
 class AssisteScraper(ScamNumberPageScraper):
     def __init__(self):
         ScamNumberPageScraper.__init__(
-            self, base_url="https://assiste.com/Arnaques_telephoniques/", page_url=""
+            self, base_url="https://assiste.com/Arnaques_telephoniques/"
         )
 
     def page(self, number):
-        response = requests.get(f"{self.page_url}index_0{number}.html")
+        response = requests.get(f"{self.base_url}index_0{number}.html")
 
         page = BeautifulSoup(response.content, features="lxml")
 

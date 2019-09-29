@@ -1,0 +1,2 @@
+class NumberDetails:
+    comments = []

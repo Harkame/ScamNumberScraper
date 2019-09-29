@@ -10,12 +10,11 @@ class ArnaquesInternetScraper(ScamNumberPageScraper):
     def __init__(self):
         ScamNumberPageScraper.__init__(
             self,
-            base_url="http://www.arnaques-internet.info/modules.php?name=telephone",
-            page_url="&pagenum=",
+            base_url="http://www.arnaques-internet.info/modules.php?name=telephone"
         )
 
-    def page(self, number):
-        response = requests.get(f"{self.page_url}{number}")
+    def page(self, page_number):
+        response = requests.get(f"{self.base_url}&pagenum={page_number}")
 
         page = BeautifulSoup(response.content, features="lxml")
 

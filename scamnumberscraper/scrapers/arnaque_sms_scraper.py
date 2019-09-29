@@ -1,23 +1,21 @@
-import os
-
 import requests
 from bs4 import BeautifulSoup
 
-from .base import NotedComment, ScamNumberSearchScraper
+from .base import NotedComment, NumberDetails, ScamNumberSearchScraper
 
 
 class ArnaqueSMSScraper(ScamNumberSearchScraper):
     def __init__(self):
         ScamNumberSearchScraper.__init__(
-            self, base_url="https://www.arnaque-sms.com/", search_url="/"
+            self, base_url="https://www.arnaque-sms.com/"
         )
 
     def search(self, phone_number):
-        response = requests.get(f"{self.search_url}{phone_number}.html")
-
-        arnaque_sms_number = ArnaqueSMSNumber()
+        response = requests.get(f"{self.base_url}/{phone_number}.html")
 
         page = BeautifulSoup(response.content, features="lxml")
+
+        arnaque_sms_number = NumberDetails()
 
         ol = page.find_all("ol")[1]
 
@@ -41,34 +39,5 @@ class ArnaqueSMSScraper(ScamNumberSearchScraper):
         return arnaque_sms_number
 
 
-class ArnaqueSMSNumber:
-    comments = []
-
-
-class ArnaqueSMSNumberComment:
-    user = None
+class ArnaqueSMSNumberComment(NotedComment):
     type = None
-    content = None
-    date = None
-
-    def __init__(self):
-        pass
-
-    def __str__(self):
-        to_string = "User : "
-        to_string += self.user
-        to_string += os.linesep
-
-        to_string += "Type : "
-        to_string += self.type
-        to_string += os.linesep
-
-        to_string += "Content : "
-        to_string += self.content
-        to_string += os.linesep
-
-        to_string += "Date : "
-        to_string += self.date
-        to_string += os.linesep
-
-        return to_string
