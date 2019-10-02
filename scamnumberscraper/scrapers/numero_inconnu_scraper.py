@@ -34,10 +34,6 @@ class NumeroInconnuNumber:
         return to_string
 
 
-def numero_inconnu_search(number):
-    pass
-
-
 class NumeroInconnuNumberComment(NotedComment):
     type = None
 

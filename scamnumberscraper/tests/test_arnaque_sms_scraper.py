@@ -1,10 +1,8 @@
-"""
-
 import unittest
 
 import requests
 
-from .. import ArnaqueSMSScraper
+from .. import ArnaqueSMSSCraper
 
 
 class TestArnaqueSMSScraper(unittest.TestCase):
@@ -12,4 +10,3 @@ class TestArnaqueSMSScraper(unittest.TestCase):
 
     def test_search(self):
         pass
-"""

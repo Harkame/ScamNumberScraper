@@ -3,19 +3,19 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
-from .base import (NotedComment, NumberDetails, ScamNumberPageScraper,
-                   ScamNumberSearchScraper)
+from .base import (
+    NotedComment,
+    NumberDetails,
+    ScamNumberPageScraper,
+    ScamNumberSearchScraper,
+)
 
 
 class DixHuitScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
     def __init__(self):
-        ScamNumberSearchScraper.__init__(
-            self, base_url="http://www.dixhuit.fr"
-        )
+        ScamNumberSearchScraper.__init__(self, base_url="http://www.dixhuit.fr")
 
-        ScamNumberPageScraper.__init__(
-            self, base_url="http://www.dixhuit.fr"
-        )
+        ScamNumberPageScraper.__init__(self, base_url="http://www.dixhuit.fr")
 
     def search(self, phone_number):
         response = requests.get(f"{self.base_url}/{phone_number}")
@@ -93,23 +93,13 @@ class DixHuitScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
 class DixHuitNumber(NumberDetails):
     consultations = 0
 
-    def __init__(self):
-        pass
-
     def __str__(self):
+        to_string = super.__str__()
+
         to_string = "Consultations : "
         to_string += self.consultations
         to_string += os.linesep
 
-        to_string += "Comments :"
-
-        for comment in self.comments:
-            to_string += str(comment)
-            to_string += os.linesep
-
         to_string += os.linesep
 
         return to_string
-
-    def search(phone_number):
-        pass

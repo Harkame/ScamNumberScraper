@@ -1,14 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 
-from .base import NotedComment, NumberDetails, ScamNumberSearchScraper
+from .base import NotedComment, ScamNumberSearchScraper
 
 
-class ArnaqueSMSScraper(ScamNumberSearchScraper):
+class ArnaqueSMSSCraper(ScamNumberSearchScraper):
     def __init__(self):
-        ScamNumberSearchScraper.__init__(
-            self, base_url="https://www.arnaque-sms.com/"
-        )
+        ScamNumberSearchScraper.__init__(self, base_url="https://www.arnaque-sms.com/")
 
     def search(self, phone_number):
         response = requests.get(f"{self.base_url}/{phone_number}.html")

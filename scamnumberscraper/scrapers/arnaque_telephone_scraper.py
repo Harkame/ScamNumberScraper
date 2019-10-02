@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-from .base import ScamNumberPageScraper, ScamNumberSearchScraper
+from .base import ScamNumberSearchScraper
 
 
 class ArnaqueTelephoneScraper(ScamNumberSearchScraper):

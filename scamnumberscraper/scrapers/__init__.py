@@ -1,5 +1,5 @@
 from .appel_inconnu_scraper import AppelInconnuScraper
-from .arnaque_sms_scraper import ArnaqueSMSScraper
+from .arnaque_sms_scraper import ArnaqueSMSSCraper
 from .arnaque_telephone_scraper import ArnaqueTelephoneScraper
 from .arnaques_internet_scraper import ArnaquesInternetScraper
 from .assiste_scraper import AssisteScraper

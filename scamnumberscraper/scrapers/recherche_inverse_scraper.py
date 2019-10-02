@@ -16,11 +16,3 @@ class RechercheInverseScraper(ScamNumberSearchScraper):
 
     def search(self, phone_number):
         pass
-
-
-class RechercheInverseNumber(NumberDetails):
-    pass
-
-
-class RechercheInverseComment(NotedComment):
-    pass

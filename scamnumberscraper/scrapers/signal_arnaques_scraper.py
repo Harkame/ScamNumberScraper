@@ -1,20 +1,22 @@
 import requests
 from bs4 import BeautifulSoup
 
-from .base import (NotedComment, NumberDetails, ScamNumberPageScraper,
-                   ScamNumberSearchScraper)
+from .base import (
+    NotedComment,
+    NumberDetails,
+    ScamNumberPageScraper,
+    ScamNumberSearchScraper,
+)
 
 
 class SignalArnaquesScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
     def __init__(self):
         ScamNumberSearchScraper.__init__(
-            self,
-            base_url="https://www.signal-arnaques.com/phone-fraud",
+            self, base_url="https://www.signal-arnaques.com/phone-fraud"
         )
 
         ScamNumberPageScraper.__init__(
-            self,
-            base_url="https://www.signal-arnaques.com/phone-fraud",
+            self, base_url="https://www.signal-arnaques.com/phone-fraud"
         )
 
     def search(self, phone_number):
@@ -51,11 +53,3 @@ class SignalArnaquesScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
         )
 
         return page_counter
-
-
-class SignalArnaquesNumber(NumberDetails):
-    pass
-
-
-class SignalArnaquesNumberComment(NotedComment):
-    pass

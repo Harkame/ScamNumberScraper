@@ -14,7 +14,3 @@ class TellowsScraper(ScamNumberSearchScraper):
 
     def search(self, phone_number):
         pass
-
-
-class TellowsNumber:
-    comments = []

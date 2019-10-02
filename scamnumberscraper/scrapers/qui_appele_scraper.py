@@ -14,7 +14,3 @@ class QuiAppeleScraper(ScamNumberSearchScraper):
 
     def search(self, phone_number):
         pass
-
-
-class QuiAppeleNumber:
-    comments = []

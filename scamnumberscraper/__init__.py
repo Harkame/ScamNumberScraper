@@ -1,7 +1,7 @@
 from .scrapers import (
     AppelInconnuScraper,
     ArnaquesInternetScraper,
-    ArnaqueSMSScraper,
+    ArnaqueSMSSCraper,
     ArnaqueTelephoneScraper,
     AssisteScraper,
     DixHuitScraper,
