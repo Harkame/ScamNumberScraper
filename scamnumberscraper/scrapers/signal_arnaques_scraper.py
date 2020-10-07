@@ -5,6 +5,10 @@ from bs4 import BeautifulSoup
 
 from .base import ScamNumberPageScraper, ScamNumberScraper, ScamNumberSearchScraper
 
+headers = {
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36"
+}
+
 
 class SignalArnaquesScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
     def __init__(self):
@@ -26,7 +30,7 @@ class SignalArnaquesScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
         page = BeautifulSoup(response.content, features="lxml")
 
     def page(self, number):
-        response = requests.get(f"{self.page_url}{number}")
+        response = requests.get(f"{self.page_url}{number}", headers=headers)
 
         page = BeautifulSoup(response.content, features="lxml")
 
@@ -42,10 +46,9 @@ class SignalArnaquesScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
         return numbers
 
     def count(self):
-        response = requests.get(f"{self.page_url}99999999")
+        response = requests.get(f"{self.page_url}99999999", headers=headers)
 
         page = BeautifulSoup(response.content, features="lxml")
-
         page_counter = int(
             page.find("ul", {"class": "pagination"})
             .find("li", {"class": "active"})

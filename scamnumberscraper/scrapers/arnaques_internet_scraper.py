@@ -10,7 +10,7 @@ class ArnaquesInternetScraper(ScamNumberPageScraper):
     def __init__(self):
         ScamNumberPageScraper.__init__(
             self,
-            base_url="http://www.arnaques-internet.info/modules.php?name=telephone",
+            base_url="http://archive.arnaques-internet.info/modules.php?name=telephone",
             page_url="&pagenum=",
         )
 
