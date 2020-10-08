@@ -5,6 +5,7 @@ import requests
 import os
 from tqdm import tqdm
 import errno
+from random import randrange
 from bs4 import BeautifulSoup
 import phonenumbers
 from scrapers import (
@@ -43,10 +44,10 @@ if __name__ == "__main__":
 
     # scraper = FauxNumerosScraper()
 
-    scraper = ArnaquesInternetScraper()
+    # scraper = ArnaquesInternetScraper()
     # scraper = AssisteScraper()
 
-    # scraper = SignalArnaquesScraper()
+    scraper = SignalArnaquesScraper()
     # scraper = DixHuitScraper()
 
     # scraper = RechercheInverseScraper()
@@ -106,6 +107,8 @@ if __name__ == "__main__":
 
             with open(f"{scraper.name}/parsed.json", "w") as outfile:
                 json.dump(parsed_numbers, outfile)
+
+        sleep_time = randrange(10, 30)
 
         time.sleep(10)
 

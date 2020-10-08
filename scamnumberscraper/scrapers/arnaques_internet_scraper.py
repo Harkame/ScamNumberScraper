@@ -8,6 +8,7 @@ from .base import ScamNumberPageScraper
 
 class ArnaquesInternetScraper(ScamNumberPageScraper):
     def __init__(self):
+        self.name = "arnaques_internet"
         ScamNumberPageScraper.__init__(
             self,
             base_url="http://archive.arnaques-internet.info/modules.php?name=telephone",
@@ -27,7 +28,7 @@ class ArnaquesInternetScraper(ScamNumberPageScraper):
 
         for i in range(1, len(tr_tags)):
             b = tr_tags[i].find_all("td")[0].find("b")
-            numbers.append(b.text)
+            numbers.append(b.text.strip().replace("\n", "").replace("\r", ""))
 
         return numbers
 

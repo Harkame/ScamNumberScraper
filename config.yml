@@ -1,0 +1,5 @@
+providers:
+  arnaques_internet:
+    last_number: '+33655887744'
+  signal_arnaques:
+    last_number: None

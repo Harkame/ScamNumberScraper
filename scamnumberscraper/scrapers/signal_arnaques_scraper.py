@@ -12,6 +12,8 @@ headers = {
 
 class SignalArnaquesScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
     def __init__(self):
+        self.name = "signal_arnaques"
+
         ScamNumberSearchScraper.__init__(
             self,
             base_url="https://www.signal-arnaques.com/phone-fraud",
@@ -39,7 +41,12 @@ class SignalArnaquesScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
         numbers = []
 
         for tr_tag in tr_tags:
-            phone_number = tr_tag.find_all("td")[1].text
+            phone_number = (
+                tr_tag.find_all("td")[1]
+                .text.strip()
+                .replace("\n", "")
+                .replace("\r", "")
+            )
 
             numbers.append(phone_number)
 
