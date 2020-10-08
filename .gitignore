@@ -10,5 +10,5 @@ dist/
 *.pyc
 torrents/
 scamnumberscraper.egg-info
-.json
 *.json
+*.txt

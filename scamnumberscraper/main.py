@@ -3,6 +3,7 @@ from yaml import Loader, load, dump
 import json
 import requests
 import os
+from random import randrange
 from tqdm import tqdm
 import errno
 from bs4 import BeautifulSoup
@@ -35,8 +36,15 @@ def get_config(config_file_path):
 
 
 def write_config(config_file_path, config):
-    stream = open(config_file_path, "w")
+    stream = open(config_file_path, "w+")
     dump(config, stream)
+
+
+def write_array(file, array):
+    with open(file, "a") as f:
+        for item in array:
+            print(item)
+            f.write(f"{item}{os.linesep}")
 
 
 if __name__ == "__main__":
@@ -60,10 +68,6 @@ if __name__ == "__main__":
 
     count = scraper.count()
 
-    raw_numbers = []
-    invalid_numbers = []
-    parsed_numbers = []
-
     try:
         os.mkdir(scraper.name)
     except OSError as exc:
@@ -71,15 +75,52 @@ if __name__ == "__main__":
             raise
         pass
 
+    last_number = None
+
+    config = get_config("config.yml")
+
+    if config is None:
+        config = {}
+        write_config("config.yml", config)
+
+    if "providers" not in config:
+        config = {"providers": {}}
+        write_config("config.yml", config)
+
+    provider_index = -1
+
+    if scraper.name not in config["providers"]:
+        config["providers"][scraper.name] = {"last_number": None, "last_page": 1}
+        write_config("config.yml", config)
+
+    start_index = 1
+
+    if config["providers"][scraper.name]["last_page"] != count:
+        start_index = config["providers"][scraper.name]["last_page"] + 1
+
     pages_progress_bar = tqdm(
-        total=count, position=1, bar_format="[{bar}] - [{n_fmt}/{total_fmt}] - [pages]",
+        total=count,
+        initial=start_index,
+        bar_format="[{bar}] - [{n_fmt}/{total_fmt}] - [pages]",
     )
 
-    for index in range(1, count + 1):
+    for index in range(start_index, count + 1):
+        raw_numbers = []
+        invalid_numbers = []
+        parsed_numbers = []
 
         page = scraper.page(index)
 
         for number in page:
+            if last_number is None:
+                last_number = number
+
+                config = get_config("config.yml")
+
+                config["providers"][scraper.name]["last_number"] = number
+
+                write_config("config.yml", config)
+
             raw_numbers.append(number)
 
             try:
@@ -92,32 +133,27 @@ if __name__ == "__main__":
                 invalid_numbers.append(number)
                 continue
 
-            international_number = phonenumbers.format_number(
+            e164_number = phonenumbers.format_number(
                 parsed_number, phonenumbers.PhoneNumberFormat.E164
             )
 
-            parsed_numbers.append(international_number)
+            parsed_numbers.append(e164_number)
 
-            with open(f"{scraper.name}/raw.json", "w") as outfile:
-                json.dump(raw_numbers, outfile)
+        with open(f"{scraper.name}/invalid.json", "w") as outfile:
+            json.dump(invalid_numbers, outfile)
 
-            with open(f"{scraper.name}/invalid.json", "w") as outfile:
-                json.dump(invalid_numbers, outfile)
+        write_array(f"{scraper.name}/raw.txt", raw_numbers)
+        write_array(f"{scraper.name}/invalid.txt", invalid_numbers)
+        write_array(f"{scraper.name}/parsed.txt", parsed_numbers)
 
-            with open(f"{scraper.name}/parsed.json", "w") as outfile:
-                json.dump(parsed_numbers, outfile)
+        config["providers"][scraper.name]["last_page"] = index
+        write_config("config.yml", config)
 
-        time.sleep(10)
+        time.sleep(randrange(30, 60))
 
         pages_progress_bar.update(1)
 
     pages_progress_bar.close()
-
-    config = get_config("config.yml")
-
-    config["providers"][scraper.name]["last_number"] = raw_numbers[0]
-
-    write_config("config.yml", config)
 
     # print(scraper.search("0559989827"))
 

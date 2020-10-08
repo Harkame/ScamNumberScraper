@@ -1,7 +1,4 @@
 providers:
   arnaques_internet:
-    last_number: '+33655887744'
-  signal_arnaques:
-    last_number: None
-  dixhuit:
-    last_number: None
+    last_number: 01 77 74 54 84
+    last_page: 25
