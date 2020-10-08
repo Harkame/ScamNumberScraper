@@ -11,3 +11,4 @@ dist/
 torrents/
 scamnumberscraper.egg-info
 .json
+*.json

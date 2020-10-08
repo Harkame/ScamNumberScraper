@@ -8,6 +8,7 @@ from .base import NotedComment, ScamNumberPageScraper, ScamNumberSearchScraper
 
 class DixHuitScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
     def __init__(self):
+        self.name = "dixhuit"
         ScamNumberSearchScraper.__init__(
             self, base_url="http://www.dixhuit.fr", search_url="/"
         )
@@ -75,7 +76,9 @@ class DixHuitScraper(ScamNumberSearchScraper, ScamNumberPageScraper):
         phones_number = []
 
         for card_title_tag in card_title_tags:
-            phones_number.append(card_title_tag.text)
+            phones_number.append(
+                card_title_tag.text.strip().replace("\n", "").replace("\r", "")
+            )
 
         return phones_number
 
