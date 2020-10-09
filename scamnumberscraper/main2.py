@@ -51,10 +51,10 @@ if __name__ == "__main__":
 
     # scraper = FauxNumerosScraper()
 
-    # scraper = ArnaquesInternetScraper()
+    scraper = ArnaquesInternetScraper()
     # scraper = AssisteScraper()
 
-    scraper = SignalArnaquesScraper()
+    # scraper = SignalArnaquesScraper()
     # scraper = DixHuitScraper()
 
     # scraper = RechercheInverseScraper()
@@ -93,10 +93,10 @@ if __name__ == "__main__":
         config["providers"][scraper.name] = {"last_number": None, "last_page": 1}
         write_config("config.yml", config)
 
-    start_index = 1
-
     if config["providers"][scraper.name]["last_page"] != count:
         start_index = config["providers"][scraper.name]["last_page"]
+
+    start_index = 1
 
     pages_progress_bar = tqdm(
         total=count,
@@ -112,6 +112,7 @@ if __name__ == "__main__":
         page = scraper.page(index)
 
         for number in page:
+            number = number.replace("\u200c", "").replace("\u202d", "")
             if last_number is None:
                 last_number = number
 
@@ -150,7 +151,7 @@ if __name__ == "__main__":
         config["providers"][scraper.name]["last_page"] = index
         write_config("config.yml", config)
 
-        time.sleep(randrange(60, 120))
+        time.sleep(randrange(5, 10))
         # time.sleep(1)
 
         pages_progress_bar.update(1)
